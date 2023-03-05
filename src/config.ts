@@ -60,6 +60,11 @@ export enum ProviderType {
   GPT3 = 'gpt3',
 }
 
+export enum GPT3ModelName {
+  Dav3 = 'text-davinci-003',
+  Turbo = 'gpt-3.5-turbo',
+}
+
 interface GPT3ProviderConfig {
   model: string
   apiKey: string

@@ -24,9 +24,17 @@ export async function fetchExtensionConfigs(): Promise<{
   chatgpt_webapp_model_name: string
   openai_model_names: string[]
 }> {
-  return fetch(`${API_HOST}/api/config`, {
-    headers: {
-      'x-version': getExtensionVersion(),
-    },
-  }).then((r) => r.json())
+  return new Promise((resolve, reject) => {
+    resolve(
+      JSON.parse(
+        '{"chatgpt_webapp_model_name":"gpt-3.5","openai_model_names":["text-davinci-003", "gpt-3.5-turbo"]}',
+      ),
+    )
+  })
+  // console.log(`${API_HOST}/api/config`)
+  // return fetch(`${API_HOST}/api/config`, {
+  //   headers: {
+  //     'x-version': getExtensionVersion(),
+  //   },
+  // }).then((r) => r.json())
 }

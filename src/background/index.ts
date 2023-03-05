@@ -1,6 +1,7 @@
 import Browser from 'webextension-polyfill'
-import { getProviderConfigs, ProviderType } from '../config'
+import { getProviderConfigs, GPT3ModelName, ProviderType } from '../config'
 import { ChatGPTProvider, getChatGPTAccessToken, sendMessageFeedback } from './providers/chatgpt'
+import { GptTurboProvider } from './providers/gptTurbo'
 import { OpenAIProvider } from './providers/openai'
 import { Provider } from './types'
 
@@ -13,7 +14,11 @@ async function generateAnswers(port: Browser.Runtime.Port, question: string) {
     provider = new ChatGPTProvider(token)
   } else if (providerConfigs.provider === ProviderType.GPT3) {
     const { apiKey, model } = providerConfigs.configs[ProviderType.GPT3]!
-    provider = new OpenAIProvider(apiKey, model)
+    if (model === GPT3ModelName.Dav3) {
+      provider = new OpenAIProvider(apiKey, model)
+    } else {
+      provider = new GptTurboProvider(apiKey, model)
+    }
   } else {
     throw new Error(`Unknown provider ${providerConfigs.provider}`)
   }

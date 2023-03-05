@@ -15,6 +15,18 @@ export interface GenerateAnswerParams {
   signal?: AbortSignal
 }
 
+export interface ChatMessageType {
+  role: 'user' | 'assistant' | 'system'
+  content: string
+}
+
 export interface Provider {
   generateAnswer(params: GenerateAnswerParams): Promise<{ cleanup?: () => void }>
+}
+
+export interface GptMessageResp {
+  role: string
+  content: string
+  finish_reason: string
+  index: number
 }
